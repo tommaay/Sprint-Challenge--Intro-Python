@@ -5,13 +5,13 @@ import csv
 
 
 class City:
-    def __init__(self, name, latitude, longitude):
+    def __init__(self, name, lat, lon):
         self.name = name
-        self.latitude = latitude
-        self.longitude = longitude
+        self.lat = lat
+        self.lon = lon
 
     def __str__(self):
-        return f"({self.name}, {self.latitude},{self.longitude})"
+        return f"({self.name}, {self.lat},{self.lon})"
 
 
 # We have a collection of US cities with population over 750,000 stored in the
@@ -82,48 +82,80 @@ for c in cities:
 # Salt Lake City: (40.7774,-111.9301)
 
 # TODO Get latitude and longitude values from the user
+
 cmd = input('Enter in 2 latitude and longitude values with a space in between each value in the following format - (lat1 lon1 lat2 lon2):')
-cmd = cmd.split('')
-lat1 = None
-lon1 = None
-lat2 = None
-lon2 = None
+cmd = cmd.split()
+
+min_lat = None
+min_lon = None
+max_lat = None
+max_lon = None
 
 if len(cmd) != 4 and int(cmd[0]) != True and int(cmd[1]) != True and int(cmd[2]) != True and int(cmd[3]) != True:
     cmd = input(
         'Please enter in a lattitude and longitude in the correct format:')
 else:
-    if cmd[0] < cmd[2] and cmd[1] < cmd[3]:
-        lat1 = float(cmd[0])
-        lon1 = float(cmd[1])
-        lat2 = float(cmd[2])
-        lon2 = float(cmd[3])
+    if int(cmd[0]) < int(cmd[2]) and int(cmd[1]) < int(cmd[3]):
+        min_lat = float(cmd[0])
+        min_lon = float(cmd[1])
+        max_lat = float(cmd[2])
+        max_lon = float(cmd[3])
 
-    elif cmd[0] > cmd[2] and cmd[1] < cmd[3]:
-        lat1 = float(cmd[1])
-        lon1 = float(cmd[0])
-        lat2 = float(cmd[2])
-        lon2 = float(cmd[3])
+    elif int(cmd[0]) > int(cmd[2]) and int(cmd[1]) < int(cmd[3]):
+        min_lat = float(cmd[2])
+        min_lon = float(cmd[1])
+        max_lat = float(cmd[0])
+        max_lon = float(cmd[3])
 
-    elif cmd[0] > cmd[2] and cmd[1] > cmd[3]:
-        lat1 = float(cmd[1])
-        lon1 = float(cmd[0])
-        lat2 = float(cmd[3])
-        lon2 = float(cmd[2])
+    elif int(cmd[0]) > int(cmd[2]) and int(cmd[1]) > int(cmd[3]):
+        min_lat = float(cmd[2])
+        min_lon = float(cmd[3])
+        max_lat = float(cmd[0])
+        max_lon = float(cmd[1])
 
-    elif cmd[0] < cmd[2] and cmd[1] > cmd[3]:
-        lat1 = float(cmd[0])
-        lon1 = float(cmd[1])
-        lat2 = float(cmd[3])
-        lon2 = float(cmd[2])
+    elif int(cmd[0]) < int(cmd[2]) and int(cmd[1]) > int(cmd[3]):
+        min_lat = float(cmd[0])
+        min_lon = float(cmd[3])
+        max_lat = float(cmd[2])
+        max_lon = float(cmd[1])
 
 
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
-        # within will hold the cities that fall within the specified region
+    # within will hold the cities that fall within the specified region
     within = []
+
+    if float(lat1) < float(lat2) and float(lon1) < float(lon2):
+        min_lat = float(lat1)
+        min_lon = float(lon1)
+        max_lat = float(lat2)
+        max_lon = float(lon2)
+
+    elif float(lat1) > float(lat2) and float(lon1) < float(lon2):
+        min_lat = float(lat2)
+        min_lon = float(lon1)
+        max_lat = float(lat1)
+        max_lon = float(lon2)
+
+    elif float(lat1) > float(lat2) and float(lon1) > float(lon2):
+        min_lat = float(lat2)
+        min_lon = float(lon2)
+        max_lat = float(lat1)
+        max_lon = float(lon1)
+
+    elif float(lat1) < float(lat2) and float(lon1) > float(lon2):
+        min_lat = float(lat1)
+        min_lon = float(lon2)
+        max_lat = float(lat2)
+        max_lon = float(lon1)
 
     # TODO Ensure that the lat and lon values are all floats
     # Go through each city and check to see if it falls within
     # the specified coordinates.
+
+    for i in cities:
+        if min_lat <= i.lat <= max_lat and min_lon <= i.lon <= max_lon:
+            within.append(i)
+        else:
+            continue
 
     return within
