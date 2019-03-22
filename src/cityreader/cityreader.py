@@ -93,17 +93,36 @@ if len(cmd) != 4 and int(cmd[0]) != True and int(cmd[1]) != True and int(cmd[2])
     cmd = input(
         'Please enter in a lattitude and longitude in the correct format:')
 else:
-    lat1 = float(cmd[0])
-    lon1 = float(cmd[1])
-    lat2 = float(cmd[2])
-    lon2 = float(cmd[3])
+    if cmd[0] < cmd[2] and cmd[1] < cmd[3]:
+        lat1 = float(cmd[0])
+        lon1 = float(cmd[1])
+        lat2 = float(cmd[2])
+        lon2 = float(cmd[3])
+
+    elif cmd[0] > cmd[2] and cmd[1] < cmd[3]:
+        lat1 = float(cmd[1])
+        lon1 = float(cmd[0])
+        lat2 = float(cmd[2])
+        lon2 = float(cmd[3])
+
+    elif cmd[0] > cmd[2] and cmd[1] > cmd[3]:
+        lat1 = float(cmd[1])
+        lon1 = float(cmd[0])
+        lat2 = float(cmd[3])
+        lon2 = float(cmd[2])
+
+    elif cmd[0] < cmd[2] and cmd[1] > cmd[3]:
+        lat1 = float(cmd[0])
+        lon1 = float(cmd[1])
+        lat2 = float(cmd[3])
+        lon2 = float(cmd[2])
 
 
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
-    # within will hold the cities that fall within the specified region
+        # within will hold the cities that fall within the specified region
     within = []
 
-    # TODO Ensure that the lat and lon valuse are all floats
+    # TODO Ensure that the lat and lon values are all floats
     # Go through each city and check to see if it falls within
     # the specified coordinates.
 
