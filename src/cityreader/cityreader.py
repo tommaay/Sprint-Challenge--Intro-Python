@@ -82,17 +82,21 @@ for c in cities:
 # Salt Lake City: (40.7774,-111.9301)
 
 # TODO Get latitude and longitude values from the user
-cmd = input('Enter in a latitude and a space then a longitude:')
+cmd = input('Enter in 2 latitude and longitude values with a space in between each value in the following format - (lat1 lon1 lat2 lon2):')
 cmd = cmd.split('')
-lat = None
-lon = None
+lat1 = None
+lon1 = None
+lat2 = None
+lon2 = None
 
-if len(cmd) != 2 and int(cmd[0]) != True and int(cmd[1]) != True:
+if len(cmd) != 4 and int(cmd[0]) != True and int(cmd[1]) != True and int(cmd[2]) != True and int(cmd[3]) != True:
     cmd = input(
         'Please enter in a lattitude and longitude in the correct format:')
 else:
-    lat = float(cmd[0])
-    lon = float(cmd[1])
+    lat1 = float(cmd[0])
+    lon1 = float(cmd[1])
+    lat2 = float(cmd[2])
+    lon2 = float(cmd[3])
 
 
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
