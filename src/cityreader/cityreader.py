@@ -95,28 +95,18 @@ if len(cmd) != 4 and int(cmd[0]) != True and int(cmd[1]) != True and int(cmd[2])
     cmd = input(
         'Please enter in a lattitude and longitude in the correct format:')
 else:
-    if int(cmd[0]) < int(cmd[2]) and int(cmd[1]) < int(cmd[3]):
+    if int(cmd[0]) < int(cmd[2]):
         min_lat = float(cmd[0])
-        min_lon = float(cmd[1])
         max_lat = float(cmd[2])
-        max_lon = float(cmd[3])
-
-    elif int(cmd[0]) > int(cmd[2]) and int(cmd[1]) < int(cmd[3]):
+    else:
         min_lat = float(cmd[2])
+        max_lat = float(cmd[0])
+
+    if int(cmd[1]) < int(cmd[3]):
         min_lon = float(cmd[1])
-        max_lat = float(cmd[0])
         max_lon = float(cmd[3])
-
-    elif int(cmd[0]) > int(cmd[2]) and int(cmd[1]) > int(cmd[3]):
-        min_lat = float(cmd[2])
+    else:
         min_lon = float(cmd[3])
-        max_lat = float(cmd[0])
-        max_lon = float(cmd[1])
-
-    elif int(cmd[0]) < int(cmd[2]) and int(cmd[1]) > int(cmd[3]):
-        min_lat = float(cmd[0])
-        min_lon = float(cmd[3])
-        max_lat = float(cmd[2])
         max_lon = float(cmd[1])
 
 
@@ -124,28 +114,18 @@ def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
     # within will hold the cities that fall within the specified region
     within = []
 
-    if float(lat1) < float(lat2) and float(lon1) < float(lon2):
+    if float(lat1) < float(lat2):
         min_lat = float(lat1)
-        min_lon = float(lon1)
         max_lat = float(lat2)
-        max_lon = float(lon2)
-
-    elif float(lat1) > float(lat2) and float(lon1) < float(lon2):
+    else:
         min_lat = float(lat2)
+        max_lat = float(lat1)
+
+    if float(lon1) < float(lon2):
         min_lon = float(lon1)
-        max_lat = float(lat1)
         max_lon = float(lon2)
-
-    elif float(lat1) > float(lat2) and float(lon1) > float(lon2):
-        min_lat = float(lat2)
+    else:
         min_lon = float(lon2)
-        max_lat = float(lat1)
-        max_lon = float(lon1)
-
-    elif float(lat1) < float(lat2) and float(lon1) > float(lon2):
-        min_lat = float(lat1)
-        min_lon = float(lon2)
-        max_lat = float(lat2)
         max_lon = float(lon1)
 
     # TODO Ensure that the lat and lon values are all floats
